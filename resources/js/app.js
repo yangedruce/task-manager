@@ -13,8 +13,8 @@ Alpine.start();
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
 createInertiaApp({
-    // title: (title) => `${title} - ${appName}`,
-    title: () => "Task Manager",
+    title: (title) => `${title} - ${appName}`,
+    // title: () => "Task Manager",
     resolve: (name) =>
         resolvePageComponent(
             `./Pages/${name}.vue`,

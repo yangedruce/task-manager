@@ -1,4 +1,5 @@
 <template>
+    <Head title="Task Manager" />
     <div class="max-w-xl mx-auto mt-10">
         <div
             v-if="message"
@@ -57,6 +58,10 @@
         </ul>
     </div>
 </template>
+
+<script setup>
+import { Head } from "@inertiajs/vue3";
+</script>
 
 <script>
 import axios from "axios";
