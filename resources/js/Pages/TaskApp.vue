@@ -7,6 +7,12 @@
         >
             {{ message }}
         </div>
+        <div
+            v-if="errorMessage"
+            class="bg-red-100 text-red-800 p-2 rounded mb-4"
+        >
+            {{ errorMessage }}
+        </div>
 
         <form @submit.prevent="addTask" class="flex gap-2 mb-4">
             <input
@@ -72,6 +78,7 @@ export default {
             tasks: [],
             newTask: "",
             message: "",
+            errorMessage: "",
         };
     },
     mounted() {
@@ -86,7 +93,10 @@ export default {
             }));
         },
         async addTask() {
-            if (!this.newTask.trim()) return;
+            if (!this.newTask.trim()) {
+                this.showErrorMessage("Task title cannot be empty.");
+                return;
+            }
             const res = await axios.post("/api/tasks", { title: this.newTask });
             this.newTask = "";
             this.showMessage(res.data.message);
@@ -128,6 +138,12 @@ export default {
             this.message = msg;
             setTimeout(() => {
                 this.message = "";
+            }, 3000);
+        },
+        showErrorMessage(error) {
+            this.errorMessage = error;
+            setTimeout(() => {
+                this.errorMessage = "";
             }, 3000);
         },
     },
